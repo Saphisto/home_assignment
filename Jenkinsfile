@@ -2,7 +2,6 @@ pipeline {
     agent {
             label 'zip-job-docker'
             args '--privileged'
-            reuseNode true
     }
     stages {
         stage('Checkout SCM') {
