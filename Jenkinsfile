@@ -1,7 +1,6 @@
 pipeline {
     agent {
             label 'zip-job-docker'
-            args '--privileged'
     }
     stages {
         stage('Checkout SCM') {
