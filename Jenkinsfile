@@ -10,7 +10,7 @@ pipeline {
                     $class: 'GitSCM',
                     branches: [[name: 'main']],
                     userRemoteConfigs : [[
-                        url: 'git@github.com:Saphisto/project_traininf.git',
+                        url: 'git@github.com:Saphisto/home_assignment.git',
                         credentialsId: ''
                     ]]
                 ])
