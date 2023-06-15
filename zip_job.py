@@ -10,7 +10,7 @@ for letter in alphabets:
             file.write("This is the letter: " + letter)
             print("Created txt file:", file_name)
     except:
-        print("error")
+        print("Error occured")
         exit(1)
 
 version = os.environ.get("VERSION")
