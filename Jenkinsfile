@@ -12,7 +12,14 @@ pipeline {
         stage('Checkout SCM') {
             steps {
                 deleteDir() // Instead of 'rm -rf *', use deleteDir() to clean workspace
-                git branch: 'main', url: 'git@github.com:Saphisto/home_assignment.git'
+                checkout([
+                  $class: 'GitSCM',
+                  branches: [[name: 'main']],
+                  userRemoteConfigs : [[
+                    url: 'git@github.com:Saphisto/home_assignment.git',
+                    credentialsId: ''
+                  ]]
+               ])
             }
         }
         stage('Build') {
