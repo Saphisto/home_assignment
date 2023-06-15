@@ -1,0 +1,41 @@
+node('zip-job-docker') {
+    withEnv(["DOCKER_OPTS=-u root",
+             "ARTIFACTORY_USER=superman",
+             "ARTIFACTORY_PASSWORD=P@ssw0rd123\$"]) {
+                 
+        stage('Checkout SCM') {
+            deleteDir()
+            git branch: 'main', credentialsId: 'for_git_hib_ssh', url: 'git@github.com:Saphisto/home_assignment.git'
+        }
+        
+        stage('Build') {
+            sh 'python3 /tmp/zip_job.py'
+        }
+        
+        stage('Publish') {
+            def directory = "/home/ubuntu/workspace/home_assignment_scripted/"
+            def artifactory_url = "http://192.168.126.128:8082/artifactory/store-artifacts_scripted/"
+            
+            dir(directory) {
+                sh '''
+                for file in *; do
+                    if [[ -f "$file" && "$file" == *.zip ]]; then
+                        filename=$(basename "$file")
+                        curl -u "$ARTIFACTORY_USER":"$ARTIFACTORY_PASSWORD" -X PUT "$artifactory_url/$filename" -T "$file"
+                    fi
+                done
+                '''
+            }
+        }
+        
+        stage('Report') {
+            emailext recipientProviders: [requestor()],
+            subject: "Job Status: ${currentBuild.currentResult}",
+            body: "The job status is ${currentBuild.currentResult}."
+        }
+        
+        stage('Cleanup') {
+            deleteDir()
+        }
+    }
+}
