@@ -4,29 +4,19 @@ pipeline {
             image 'shay/home_assignment:version1'
             label 'zip-job-docker'
             args '--privileged'
+            reuseNode true
         }
     }
     stages {
-        stage('Checkout SCM'){
+        stage('Checkout SCM') {
             steps {
-                sh 'rm -rf *'
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: 'main']],
-                    userRemoteConfigs : [[
-                        url: 'git@github.com:Saphisto/home_assignment.git',
-                        credentialsId: ''
-                    ]]
-                ])
+                deleteDir() // Instead of 'rm -rf *', use deleteDir() to clean workspace
+                git branch: 'main', url: 'git@github.com:Saphisto/home_assignment.git'
             }
         }
         stage('Build') {
             steps {
-                script {
-                    docker.image('shay/home_assignment:version1').inside {
-                        sh 'python3 /tmp/zip_job.py'
-                    }
-                }
+                sh 'python3 /tmp/zip_job.py'
             }
         }
     }
