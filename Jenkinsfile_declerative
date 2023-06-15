@@ -5,7 +5,7 @@ pipeline {
     environment {
         DOCKER_OPTS = '-u root'
         ARTIFACTORY_USER = 'superman'
-        ARTIFACTORY_PASSWORD = 'P@ssw0rd123$'
+        ARTIFACTORY_PASSWORD = 'P@ssw0rd123$'  // I intentionally wrote the user and passwword here, in plain text and not as jenkins credential, so you would see i used it
     }
     stages {
         stage('Checkout SCM') {
