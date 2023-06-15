@@ -23,17 +23,14 @@ pipeline {
             steps {
                 script {
                     sh '''
-
                     directory="/home/ubuntu/workspace/home_assignment/"
                     artifactory_url="http://192.168.126.128:8082/artifactory/store-artifacts/"
                     for file in "$directory"/*; do
-                      if [[ -f "$file" ]]; then
+                      if [[ -f "$file" && "$file" == *.zip ]; then
                         filename=$(basename "$file")
                         curl -u "$ARTIFACTORY_USER":"$ARTIFACTORY_PASSWORD" -X PUT "$artifactory_url/$filename" -T "$file"
                       fi
                     done
-
-                    
                     '''
                     
                 }
