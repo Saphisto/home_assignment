@@ -24,7 +24,7 @@ pipeline {
                 script {
                     sh '''
                     # Directory path where the files are located
-                    directory="/home/ubuntu/workspace/home_assignment"
+                    directory="/home/ubuntu/workspace/home_assignment/*.zip"
                     # Artifactory URL
                     artifactory_url="http://192.168.126.128:8082/artifactory/store-artifacts/"
                     # Username and password for authentication
