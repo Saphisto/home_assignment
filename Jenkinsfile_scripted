@@ -1,8 +1,8 @@
 node('zip-job-docker') {
     withEnv(["DOCKER_OPTS=-u root",
              "ARTIFACTORY_USER=superman",
-             "ARTIFACTORY_PASSWORD=P@ssw0rd123\$"]) {
-                 
+             "ARTIFACTORY_PASSWORD=P@ssw0rd123\$"]) { // I intentionally wrote the user and passwword here, in plain text and not as jenkins credential, so you would see i used it
+
         stage('Checkout SCM') {
             deleteDir()
             git branch: 'main', credentialsId: 'for_git_hib_ssh', url: 'git@github.com:Saphisto/home_assignment.git'
