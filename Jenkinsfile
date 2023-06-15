@@ -24,7 +24,7 @@ pipeline {
                 script {
                     sh '''
                     # Directory path where the files are located
-                    directory="/home/ubuntu/workspace/home_assignment/*.zip"
+                    directory="/home/ubuntu/workspace/home_assignment/"
                     # Artifactory URL
                     artifactory_url="http://192.168.126.128:8082/artifactory/store-artifacts/"
                     # Username and password for authentication
@@ -33,7 +33,7 @@ pipeline {
                     # Iterate over files in the directory
                     for file in "$directory"/*; do
                       # Check if the current item is a file
-                      if [ -f "$file" ]; then
+                      if [[ -f "$file" && "$file" == *.zip ]]; then
                         # Extract the file name from the path
                         filename=$(basename "$file")
                         # Upload the file to Artifactory using curl
