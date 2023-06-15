@@ -33,7 +33,7 @@ pipeline {
                     # Iterate over files in the directory
                     for file in "$directory"/*; do
                       # Check if the current item is a file
-                      if [[ -f "$file" && "$file" == *.zip ]]; then
+                      if [[ -f "$file" ]]; then
                         # Extract the file name from the path
                         filename=$(basename "$file")
                         # Upload the file to Artifactory using curl
