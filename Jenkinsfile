@@ -23,7 +23,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.image('ubuntu:latest').inside {
+                    docker.image('shay/home_assignment:version1').inside {
                         sh 'python3 /tmp/zip_job.py'
                     }
                 }
