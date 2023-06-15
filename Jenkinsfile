@@ -14,10 +14,5 @@ pipeline {
                 git branch: 'main', url: 'git@github.com:Saphisto/home_assignment.git'
             }
         }
-        stage('Build') {
-            steps {
-                sh 'python3 /tmp/zip_job.py'
-            }
-        }
     }
 }
