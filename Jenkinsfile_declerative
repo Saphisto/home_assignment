@@ -23,24 +23,13 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    # Directory path where the files are located
+
                     directory="/home/ubuntu/workspace/home_assignment/"
-                    # Artifactory URL
                     artifactory_url="http://192.168.126.128:8082/artifactory/store-artifacts/"
-                    # Username and password for authentication
-                    username="superman"
-                    password="P@ssw0rd123$"
-                    # Iterate over files in the directory
                     for file in "$directory"/*; do
-                      # Check if the current item is a file
                       if [[ -f "$file" ]]; then
-                        # Extract the file name from the path
                         filename=$(basename "$file")
-                        # Upload the file to Artifactory using curl
-                        curl -u "$username":"$password" -X PUT "$artifactory_url/$filename" -T "$file"
-                        # Check the response code if needed
-                        # response=$(curl -u "$username":"$password" -X PUT "$artifactory_url/$filename" -T "$file" -w "%{http_code}" -o /dev/null)
-                        # echo "Response code: $response"
+                        curl -u "$ARTIFACTORY_USER":"$ARTIFACTORY_PASSWORD" -X PUT "$artifactory_url/$filename" -T "$file"
                       fi
                     done
 
