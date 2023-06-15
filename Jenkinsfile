@@ -1,11 +1,9 @@
 pipeline {
     agent {
         docker {
-            image 'shay/home_assignment:version1'
             label 'zip-job-docker'
             args '--privileged'
             reuseNode true
-        }
     }
     stages {
         stage('Checkout SCM') {
